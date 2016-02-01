@@ -18,7 +18,8 @@ var webpackBootstrapFunc = function(modules) {
     __webpack_require__.m = modules;
     __webpack_require__.c = installedModules;
     __webpack_require__.p = "js/";
-    return __webpack_require__(entryModule);
+    var f = __webpack_require__(entryModule);
+    return f.default || f; // try to call default if defined to also support babel esmodule exports
 }
 
 module.exports = function (fn) {
@@ -39,7 +40,7 @@ module.exports = function (fn) {
         + sources.map(function (func) {
             return func.toString();
         }).join(',')
-        + '])();'
+        + '])(self);'
     ;
 
     var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
