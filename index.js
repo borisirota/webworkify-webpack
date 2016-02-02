@@ -17,8 +17,9 @@ var webpackBootstrapFunc = function(modules) {
     }
     __webpack_require__.m = modules;
     __webpack_require__.c = installedModules;
-    __webpack_require__.p = "js/";
-    var f = __webpack_require__(entryModule);
+    __webpack_require__.oe = function(err) { throw err; };
+    __webpack_require__.p = "";
+    var f = __webpack_require__(__webpack_require__.s = entryModule);
     return f.default || f; // try to call default if defined to also support babel esmodule exports
 }
 
