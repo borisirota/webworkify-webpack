@@ -36,7 +36,8 @@ module.exports = function (fn) {
         }
     }
 
-    var src = '(' + webpackBootstrapFunc.toString().replace('entryModule', key) + ')(['
+    // window = {}; => https://github.com/borisirota/webworkify-webpack/issues/1
+    var src = 'window = {};\n(' + webpackBootstrapFunc.toString().replace('entryModule', key) + ')(['
         + sources.map(function (func) {
             return func.toString();
         }).join(',')
