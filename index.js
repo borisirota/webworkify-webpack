@@ -26,6 +26,8 @@ var webpackBootstrapFunc = function(modules) {
 module.exports = function (fn) {
     var key;
     for (var i = 0, l = sources.length; i < l; i++) {
+        var wrapperFuncString = sources[i].toString();
+        var fnString = fn.toString();
         var exp = __webpack_require__(i);
         // Using babel as a transpiler to use esmodule, the export will always
         // be an object with the default export as a property of it. To ensure
@@ -34,16 +36,21 @@ module.exports = function (fn) {
         if (exp === fn || exp.default === fn) {
             key = i;
             break;
+        } else if (wrapperFuncString.indexOf(fnString) > -1) {
+            sources[i] = wrapperFuncString.replace(fnString, '(' + fnString + ')();');
+            key = i;
+            break;
         }
     }
 
     // window = {}; => https://github.com/borisirota/webworkify-webpack/issues/1
-    var src = 'window = {};\n(' + webpackBootstrapFunc.toString().replace('entryModule', key) + ')(['
+    var src = 'window = {};\n'
+        + 'var fn = (' + webpackBootstrapFunc.toString().replace('entryModule', key) + ')(['
         + sources.map(function (func) {
             return func.toString();
         }).join(',')
-        + '])(self);'
-    ;
+        + ']);\n'
+        + '(typeof fn === "function") && fn(self);'; // not a function when calling a function from the current scope
 
     var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
