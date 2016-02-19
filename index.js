@@ -26,6 +26,9 @@ var webpackBootstrapFunc = function(modules) {
 module.exports = function (fn) {
     var key;
     for (var i = 0, l = sources.length; i < l; i++) {
+        if (!sources[i]) {
+            continue;
+        }
         var wrapperFuncString = sources[i].toString();
         var fnString = fn.toString();
         var exp = __webpack_require__(i);
