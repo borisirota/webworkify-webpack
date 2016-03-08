@@ -40,7 +40,7 @@ module.exports = function (fn) {
             key = i;
             break;
         } else if (wrapperFuncString.indexOf(fnString) > -1) {
-            sources[i] = wrapperFuncString.replace(fnString, '(' + fnString + ')();');
+            sources[i] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
             key = i;
             break;
         }
