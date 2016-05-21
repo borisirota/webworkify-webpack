@@ -4,7 +4,7 @@
   "description": "launch a web worker that can require() in the browser with webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack example/main.js output.js",
+    "build": "webpack --config example/webpack.config.js",
     "serve": "http-server",
     "example": "npm run build && npm run serve"
   },
@@ -29,6 +29,9 @@
   },
   "homepage": "https://github.com/borisirota/webworkify-webpack",
   "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
     "gamma": "^1.0.0",
     "http-server": "^0.8.5",
     "webpack": "^2.0.6-beta"
