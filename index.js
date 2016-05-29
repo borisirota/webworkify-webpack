@@ -24,24 +24,29 @@ var webpackBootstrapFunc = function(modules) {
 }
 
 module.exports = function (fn) {
+    var fnString = fn.toString();
+
     var key;
     for (var i = 0, l = sources.length; i < l; i++) {
         if (!sources[i]) {
             continue;
         }
         var wrapperFuncString = sources[i].toString();
-        var fnString = fn.toString();
-        var exp = __webpack_require__(i);
-        // Using babel as a transpiler to use esmodule, the export will always
-        // be an object with the default export as a property of it. To ensure
-        // the existing api and babel esmodule exports are both supported we
-        // check for both
-        if (exp && (exp === fn || exp.default === fn)) {
+
+        // Being the first to require a file can be dangerous if a module has
+        // assumptions about when it is initialized. By looking to see if the
+        // `fnString` is in the module first, we can avoid unnecessary requires.
+        if (wrapperFuncString.indexOf(fnString) > -1) {
             key = i;
-            break;
-        } else if (wrapperFuncString.indexOf(fnString) > -1) {
-            sources[i] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
-            key = i;
+            var exp = __webpack_require__(i);
+
+            // Using babel as a transpiler to use esmodule, the export will always
+            // be an object with the default export as a property of it. To ensure
+            // the existing api and babel esmodule exports are both supported we
+            // check for both
+            if (!(exp && (exp === fn || exp.default === fn))) {
+              sources[i] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
+            }
             break;
         }
     }
