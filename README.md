@@ -80,6 +80,10 @@ With [npm](https://npmjs.org) do:
 npm install webworkify-webpack
 ```
 
+# caveat
+
+While developing make sure not to set webpack's devtool option to be with some eval configuration because from 1.1.0 version it won't work.
+
 # license
 
 MIT
