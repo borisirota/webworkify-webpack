@@ -80,9 +80,10 @@ With [npm](https://npmjs.org) do:
 npm install webworkify-webpack
 ```
 
-# caveat
+# caveats
 
-While developing make sure not to set webpack's devtool option to be with some eval configuration because from 1.1.0 version it won't work.
+* While developing make sure not to set webpack's devtool option to be with some eval configuration because from 1.1.0 version it won't work.
+* If passing anonymous function to webworkify-webpack, make sure to name it - [issue #9](https://github.com/borisirota/webworkify-webpack/issues/9)
 
 # license
 
