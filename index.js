@@ -24,7 +24,11 @@ var webpackBootstrapFunc = function(modules) {
 }
 
 module.exports = function (fn) {
-    var fnString = fn.toString();
+    var fnString = fn.toString()
+      // FF adds a "use strict"; to the function body
+      .replace(/"use strict";\n\n/, '')
+      // Browsers also slightly reformat the minified function expression
+      .replace(/^function \((.*)\)\{(\n"use strict";\n)?/, 'function($1){')
 
     var key;
     for (var i = 0, l = sources.length; i < l; i++) {
