@@ -83,7 +83,7 @@ npm install webworkify-webpack
 # caveats
 
 * While developing make sure not to set webpack's devtool option to be with some eval configuration because from 1.1.0 version it won't work.
-* If passing anonymous function to webworkify-webpack, make sure to name it - [issue #9](https://github.com/borisirota/webworkify-webpack/issues/9)
+* When passing anonymous functions to webworkify-webpack, naming them can prevent potential issues - [#9](https://github.com/borisirota/webworkify-webpack/issues/9), [#10](https://github.com/borisirota/webworkify-webpack/issues/10)
 
 # license
 
