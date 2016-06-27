@@ -9,9 +9,9 @@ inspired by [webworkify](https://github.com/substack/webworkify)
 First, a `main.js` file will launch the `worker.js` and print its output:
 
 ``` js
-var work = require('webworkify-webpack');
+import work from 'webworkify-webpack';
 
-var w = work(require('./worker.js'));
+let w = work(require('./worker.js'));
 w.addEventListener('message', function (ev) {
     console.log(ev.data);
 });
@@ -23,7 +23,7 @@ then `worker.js` can `require()` modules of its own. The worker function lives
 inside of the `module.exports`:
 
 ``` js
-var gamma = require('gamma');
+let gamma = require('gamma');
 
 module.exports = function (self) {
     self.addEventListener('message',function (ev){
@@ -54,10 +54,10 @@ contain output from the worker:
 # methods
 
 ``` js
-var work = require('webworkify-webpack')
+let work = require('webworkify-webpack')
 ```
 
-## var w = work(require(modulePath))
+## let w = work(require(modulePath))
 
 Return a new
 [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
@@ -77,7 +77,7 @@ output.
 With [npm](https://npmjs.org) do:
 
 ```
-npm install webworkify-webpack
+npm install webworkify-webpack --save-dev
 ```
 
 # caveats
