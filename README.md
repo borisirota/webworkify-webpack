@@ -25,13 +25,13 @@ inside of the `module.exports`:
 ```js
 import gamma from 'gamma'
 
-module.exports =  () => {
-    this.addEventListener('message', (event) => {
+module.exports =  (self) => {
+    self.addEventListener('message', (event) => {
         const startNum = parseInt(event.data); // ev.data=4 from main.js
         
         setInterval(() => {
             const r = startNum / Math.random() - 1;
-            this.postMessage([ startNum, r, gamma(r) ]);
+            self.postMessage([ startNum, r, gamma(r) ]);
         }, 500);
     });
 };
