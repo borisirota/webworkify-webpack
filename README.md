@@ -8,12 +8,12 @@ inspired by [webworkify](https://github.com/substack/webworkify)
 
 First, a `main.js` file will launch the `worker.js` and print its output:
 
-``` js
-var work = require('webworkify-webpack');
+```js
+import work from 'webworkify-webpack';
 
-var w = work(require('./worker.js'));
-w.addEventListener('message', function (ev) {
-    console.log(ev.data);
+let w = work(require('./worker.js'));
+w.addEventListener('message', event => {
+    console.log(event.data);
 });
 
 w.postMessage(4); // send the worker a message
@@ -22,16 +22,16 @@ w.postMessage(4); // send the worker a message
 then `worker.js` can `require()` modules of its own. The worker function lives
 inside of the `module.exports`:
 
-``` js
-var gamma = require('gamma');
+```js
+import gamma from 'gamma'
 
-module.exports = function (self) {
-    self.addEventListener('message',function (ev){
-        var startNum = parseInt(ev.data); // ev.data=4 from main.js
+module.exports =  () => {
+    this.addEventListener('message', (event) => {
+        const startNum = parseInt(event.data); // ev.data=4 from main.js
         
-        setInterval(function () {
-            var r = startNum / Math.random() - 1;
-            self.postMessage([ startNum, r, gamma(r) ]);
+        setInterval(() => {
+            const r = startNum / Math.random() - 1;
+            this.postMessage([ startNum, r, gamma(r) ]);
         }, 500);
     });
 };
@@ -53,11 +53,11 @@ contain output from the worker:
 
 # methods
 
-``` js
-var work = require('webworkify-webpack')
+```js
+import work from 'webworkify-webpack'
 ```
 
-## var w = work(require(modulePath))
+## let w = work(require(modulePath))
 
 Return a new
 [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
@@ -76,8 +76,8 @@ output.
 
 With [npm](https://npmjs.org) do:
 
-```
-npm install webworkify-webpack
+```sh
+npm install webworkify-webpack --save
 ```
 
 # caveats
