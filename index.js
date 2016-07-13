@@ -30,12 +30,15 @@ module.exports = function (fn) {
       // Browsers also slightly reformat the minified function expression
       .replace(/^function \((.*)\)\{(\n"use strict";\n)?/, 'function($1){')
 
+    var sourcesKeys = Object.keys(sources); // when using the CommonChunks plugin, webpacl sometimes storing sources in object instead of array
+
     var key;
-    for (var i = 0, l = sources.length; i < l; i++) {
-        if (!sources[i]) {
+    for (var i = 0, l = sourcesKeys.length; i < l; i++) {
+        var k = sourcesKeys[i];
+        if (!sources[k]) {
             continue;
         }
-        var wrapperFuncString = sources[i].toString();
+        var wrapperFuncString = sources[k].toString();
 
         // Being the first to require a file can be dangerous if a module has
         // assumptions about when it is initialized. By looking to see if the
@@ -49,7 +52,7 @@ module.exports = function (fn) {
             // the existing api and babel esmodule exports are both supported we
             // check for both
             if (!(exp && (exp === fn || exp.default === fn))) {
-              sources[i] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
+              sources[k] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
             }
             break;
         }
@@ -58,8 +61,8 @@ module.exports = function (fn) {
     // window = {}; => https://github.com/borisirota/webworkify-webpack/issues/1
     var src = 'window = {};\n'
         + 'var fn = (' + webpackBootstrapFunc.toString().replace('entryModule', key) + ')(['
-        + sources.map(function (func) {
-            return func.toString();
+        + sourcesKeys.map(function (k) {
+            return sources[k].toString();
         }).join(',')
         + ']);\n'
         + '(typeof fn === "function") && fn(self);'; // not a function when calling a function from the current scope
