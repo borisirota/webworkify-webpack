@@ -28,7 +28,7 @@ module.exports = function (fn) {
       // FF adds a "use strict"; to the function body
       .replace(/"use strict";\n\n/, '')
       // Browsers also slightly reformat the minified function expression
-      .replace(/^function \((.*)\)\{(\n"use strict";\n)?/, 'function($1){')
+      .replace(/^function\s?\((.*)\)(\s?)\{(\n"use strict";\n)?/, 'function($1)$2{')
 
     var sourcesKeys = Object.keys(sources); // when using the CommonChunks plugin, webpacl sometimes storing sources in object instead of array
 
