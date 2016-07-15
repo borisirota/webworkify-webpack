@@ -25,7 +25,7 @@ inside of the `module.exports`:
 ```js
 import gamma from 'gamma'
 
-module.exports = function worker (self) {
+module.exports = function worker (self) { // use named function instead of anonymous to prevent possible issues (check the second caveat)
     self.addEventListener('message', (event) => {
         const startNum = parseInt(event.data); // ev.data=4 from main.js
         
