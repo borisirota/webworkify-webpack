@@ -97,7 +97,7 @@ module.exports = function (fn) {
     });
 
     if (typeof key === 'undefined') {
-        throw new Error('webworkify-webpack: Could not locate module containing worker function! Make sure you aren\'t using eval sourcemaps!');
+        throw new Error('webworkify-webpack: Could not locate module containing worker function! Make sure you aren\'t using eval sourcemaps and that you pass named functions to webworkify-webpack!');
     }
 
     // window = {}; => https://github.com/borisirota/webworkify-webpack/issues/1
