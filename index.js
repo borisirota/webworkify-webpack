@@ -1,6 +1,7 @@
 var __webpack_require__ = arguments[2];
 var sources = __webpack_require__.m;
-var webworkifyWebpackModuleId = arguments[0].id;
+// In webpack 2 the moduleId property is called `i` instead of `id`.
+var webworkifyWebpackModuleId = arguments[0].id || arguments[0].i;
 
 var webpackBootstrapFunc = function(modules) {
     var installedModules = {};
