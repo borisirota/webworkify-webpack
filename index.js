@@ -1,5 +1,6 @@
 var __webpack_require__ = arguments[2];
 var sources = __webpack_require__.m;
+var ENTRY_MODULE = __webpack_require__.s || "0";
 // In webpack 2 the moduleId property is called `i` instead of `id`.
 var webworkifyWebpackModuleId = arguments[0].id || arguments[0].i;
 
@@ -32,7 +33,7 @@ function quoteRegExp(str) {
 
 module.exports = function (fn) {
     var moduleWrapperStrings = [];
-    var potentialFnModuleIds = [];
+    var potentialFnModuleIds = [ENTRY_MODULE];
 
     var sourcesKeys = Object.keys(sources); // when using the CommonChunks plugin, webpacl sometimes storing sources in object instead of array
 
@@ -88,7 +89,7 @@ module.exports = function (fn) {
           // the existing api and babel esmodule exports are both supported we
           // check for both
           if (!(exp && (exp === fn || exp.default === fn))) {
-              sources[moduleId] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
+              moduleWrapperStrings[moduleId] = wrapperFuncString.substring(0, wrapperFuncString.length - 1) + '\n' + fnString.match(/function\s?(.+?)\s?\(.*/)[1] + '();\n}';
           }
 
           return true;
