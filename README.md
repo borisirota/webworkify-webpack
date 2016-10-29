@@ -105,7 +105,7 @@ contain output from the worker:
 
 # future work
 
-The goal is to make `webworkify-webpack` be based on webpack's api only. I'm not sure how to accomplish it since I never wrote a webpack plugin (is it possible other way?) so I'm asking for help :)
+The goal is to make `webworkify-webpack` be based on fully on webpack's api. I'm not sure how to accomplish it since I never wrote a webpack plugin (is it possible other way?) so I'm asking for help :)
 
 Points of view:  
 
