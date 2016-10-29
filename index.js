@@ -31,7 +31,7 @@ function quoteRegExp(str) {
     return (str+'').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
 }
 
-module.exports = function (fn) {
+module.exports = function (fn, options) {
     var moduleWrapperStrings = [];
     var potentialFnModuleIds = [ENTRY_MODULE];
 
@@ -108,10 +108,12 @@ module.exports = function (fn) {
         + moduleWrapperStrings.join(',')
         + ']);\n'
         + '(typeof fn === "function") && fn(self);'; // not a function when calling a function from the current scope
-
+    
+    var blob = new Blob([src], { type: 'text/javascript' })
+    if (options && options.bare) { return blob; }
     var URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
-
-    return new Worker(URL.createObjectURL(
-        new Blob([src], { type: 'text/javascript' })
-    ));
+    var workerUrl = URL.createObjectURL(blob);
+    var worker = new Worker(workerUrl);
+    worker.objectURL = workerUrl;
+    return worker;
 };
