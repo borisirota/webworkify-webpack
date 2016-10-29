@@ -1,19 +1,15 @@
-var commonWorker = require('./common-js-worker.js');
-import es6Worker from './es6-worker.js';
+import work from '../'
 
-var work = require('../');
-
-
-var w1 = work(commonWorker);
+var w1 = work(require.resolve('./common-js-worker.js'))
 w1.addEventListener('message', function (ev) {
-    console.log('CommonJS Worker:', ev.data);
-});
+  console.log('CommonJS Worker:', ev.data)
+})
 
-w1.postMessage(4); // send the worker a message
+w1.postMessage(4) // send the worker a message
 
-var w2 = work(es6Worker);
+var w2 = work(require.resolve('./es6-worker.js'))
 w2.addEventListener('message', function (ev) {
-    console.log('ES6 Worker', ev.data);
-});
+  console.log('ES6 Worker', ev.data)
+})
 
-w2.postMessage(4); // send the worker a message
+w2.postMessage(4) // send the worker a message
