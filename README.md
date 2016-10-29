@@ -109,7 +109,7 @@ The goal is to make `webworkify-webpack` be based on webpack's api only. I'm not
 
 Points of view:  
 
-1. [webpackBootstrapFunc](###) - should be taken from webpack's source.  
+1. [webpackBootstrapFunc](https://github.com/borisirota/webworkify-webpack/blob/master/index.js#L1) - should be taken from webpack's source.  
 2. ability to use regular module import\require (not `require.resolve`) but still passing the module id to 'webworkify-webpack'.  
 3. ability to know all specific's module dependencies in compile time so there is no need to traverse the dependencies tree in runtime with regular expressions (when uglifying the code the web worker's bundle can include more dependencies than only the used ones because regular expressions nature).  
 4. if there is going to be build in compile time, what about hmr as dev tool ?  
