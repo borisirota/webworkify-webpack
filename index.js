@@ -15,7 +15,7 @@ function webpackBootstrapFunc (modules) {
   __webpack_require__.c = installedModules
   __webpack_require__.oe = function (err) { throw err }
   __webpack_require__.p = ''
-  var f = __webpack_require__(__webpack_require__.s = 'ENTRY_MODULE')
+  var f = __webpack_require__(__webpack_require__.s = ENTRY_MODULE)
   return f.default || f // try to call default if defined to also support babel esmodule exports
 }
 
@@ -31,7 +31,7 @@ function getModuleDependencies (module) {
   if (!wrapperSignature) return retval
 
   var webpackRequireName = wrapperSignature[1]
-  var re = new RegExp(quoteRegExp(webpackRequireName) + '\\([^)]*?(\\d+)\\)', 'g') // external chars are when output.pathinfo is true
+  var re = new RegExp(quoteRegExp(webpackRequireName) + '\\([^)]*?(\\d+)\\)', 'g') // additional chars when output.pathinfo is true
   var match
   while ((match = re.exec(fnString))) {
     retval.push(parseInt(match[1], 10))
@@ -46,7 +46,7 @@ function getRequiredModules (sources, moduleId) {
 
   while (modulesQueue.length) {
     var moduleToCheck = modulesQueue.pop()
-    if (seenModules[moduleToCheck]) continue
+    if (seenModules[moduleToCheck] || !sources[moduleToCheck]) continue
     seenModules[moduleToCheck] = true
     requiredModules.push(moduleToCheck)
     var newModules = getModuleDependencies(sources[moduleToCheck])
@@ -61,7 +61,7 @@ module.exports = function (moduleId, options) {
   var sources = __webpack_modules__
 
   var requiredModules = options.all ? Object.keys(sources) : getRequiredModules(sources, moduleId)
-  var src = '(' + webpackBootstrapFunc.toString().replace('\'ENTRY_MODULE\'', moduleId) + ')({' + requiredModules.map(function (id) { return '' + id + ': ' + sources[id].toString() }).join(',') + '})();'
+  var src = '(' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', moduleId) + ')({' + requiredModules.map(function (id) { return '' + id + ': ' + sources[id].toString() }).join(',') + '})();'
 
   var blob = new window.Blob([src], { type: 'text/javascript' })
   if (options.bare) { return blob }

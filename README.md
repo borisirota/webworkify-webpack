@@ -19,7 +19,7 @@ Version 2 uses webpack's api as much as possible vs the hacky implementation of 
 In v2:
 * no limitation on webpack's devtool - `eval` was forbidden in v1.
 * no issues with anonymous functions exported as module.exports - there were issues with anonymous functions in v1.
-* `require.resolve` instead of regular `require\import` - The only limitation is using `require.resolve` which means that currently the code using `webworkify-webpack` is coupled to the build tool (webpack - but who uses `webworkify-webpack` already uses webpack) and its not possible to use es2015 modules => checkout out the [future work](###) section.
+* `require.resolve` instead of regular `require\import` - The only limitation is using `require.resolve` which means that currently the code using `webworkify-webpack` is coupled to the build tool (webpack - but who uses `webworkify-webpack` already uses webpack) and its not possible to use es2015 modules => checkout out the [future work](#future-work) section.
 
 # webworkify-webpack vs webpack's [worker-loader](https://github.com/webpack/worker-loader) and [target: 'webworker'](https://webpack.github.io/docs/configuration.html#target)
 
@@ -30,7 +30,7 @@ The motivation for `webworkify-webpack` was creating a library which expose to t
 I wanted to keep one bundle in order to reduce complexity of using external library to the minimum and make bundle size as minimal as possible when using external library which supports both sync and async functionality (without code duplication).
 
 Since webpack's solutions for web workers are being constructed at compile time, the added value is that its possible to use dev tools like `hmr` (at least when using `target: 'webworker'`) which isn't possible with `webworkify-webpack`.  
-In addition, regular `js` syntax is being used without the need to use `require.resolve` as in the `webworkify-webpack` case => checkout out the [future work](###) section.
+In addition, regular `js` syntax is being used without the need to use `require.resolve` as in the `webworkify-webpack` case => checkout out the [future work](#future-work) section.
 
 # methods
 
@@ -54,7 +54,7 @@ the module reference and load `modulePath`'s dependency graph into the bundle
 output.
 
 ### options
-- all - bundle all the dependencies in the web worker and not only the used ones. useful in cases where the used dependencies aren't being resolved as expected due to the runtime regex checking mechanism.
+- all - bundle all the dependencies in the web worker and not only the used ones. can be useful in edge cases that I'm not aware of when the used dependencies aren't being resolved as expected due to the runtime regex checking mechanism or just to avoid additional work at runtime to traverse the dependencies tree.
 - bare - the return value will be the blob constructed with the worker's code and not the web worker itself.
 
 # example
@@ -111,7 +111,7 @@ Points of view:
 
 1. [webpackBootstrapFunc](###) - should be taken from webpack's source.  
 2. ability to use regular module import\require (not `require.resolve`) but still passing the module id to 'webworkify-webpack'.  
-3. ability to know all dependencies in compile time so there is no need to traverse the dependencies tree in runtime with regular expressions.  
+3. ability to know all specific's module dependencies in compile time so there is no need to traverse the dependencies tree in runtime with regular expressions (when uglifying the code the web worker's bundle can include more dependencies than only the used ones because regular expressions nature).  
 4. if there is going to be build in compile time, what about hmr as dev tool ?  
 5. is the ability 'webworkify-webpack' provides should be part of webpack core as another form of web workers support or should it remain as external module ?
 
