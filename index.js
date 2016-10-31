@@ -61,7 +61,7 @@ module.exports = function (moduleId, options) {
   var sources = __webpack_modules__
 
   var requiredModules = options.all ? Object.keys(sources) : getRequiredModules(sources, moduleId)
-  var src = '(' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', moduleId) + ')({' + requiredModules.map(function (id) { return '' + id + ': ' + sources[id].toString() }).join(',') + '})();'
+  var src = '(' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', moduleId) + ')({' + requiredModules.map(function (id) { return '' + id + ': ' + sources[id].toString() }).join(',') + '})(self);'
 
   var blob = new window.Blob([src], { type: 'text/javascript' })
   if (options.bare) { return blob }
