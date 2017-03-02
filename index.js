@@ -31,10 +31,10 @@ function getModuleDependencies (module) {
   if (!wrapperSignature) return retval
 
   var webpackRequireName = wrapperSignature[1]
-  var re = new RegExp(quoteRegExp(webpackRequireName) + '\\([^)]*?(\\d+)\\)', 'g') // additional chars when output.pathinfo is true
+  var re = new RegExp(quoteRegExp(webpackRequireName) + '\\((\/\\*.*\\*\/)?\s?.*?([\\.|\\w|\/]+)', 'g') // additional chars when output.pathinfo is true
   var match
   while ((match = re.exec(fnString))) {
-    retval.push(parseInt(match[1], 10))
+    retval.push(match[2])
   }
   return retval
 }
@@ -61,7 +61,7 @@ module.exports = function (moduleId, options) {
   var sources = __webpack_modules__
 
   var requiredModules = options.all ? Object.keys(sources) : getRequiredModules(sources, moduleId)
-  var src = '(' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', moduleId) + ')({' + requiredModules.map(function (id) { return '' + id + ': ' + sources[id].toString() }).join(',') + '})(self);'
+  var src = '(' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', JSON.stringify(moduleId)) + ')({' + requiredModules.map(function (id) { return '' + JSON.stringify(id) + ': ' + sources[id].toString() }).join(',') + '})(self);'
 
   var blob = new window.Blob([src], { type: 'text/javascript' })
   if (options.bare) { return blob }

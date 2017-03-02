@@ -1,20 +1,30 @@
+var webpack = require('webpack')
+
 module.exports = {
   entry: {
     app: ['./example/main.js']
   },
   output: {
-    filename: 'output.js'
+    filename: 'output.js',
+    pathinfo: true
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015']
+            }
+          }
+        ]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.NamedModulesPlugin()
+  ]
 }
