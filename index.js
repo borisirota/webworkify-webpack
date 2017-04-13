@@ -80,10 +80,10 @@ function getModuleDependencies (module) {
   if (!wrapperSignature) return retval
 
   var webpackRequireName = wrapperSignature[1]
-  var re = new RegExp('\\W' + quoteRegExp(webpackRequireName) + '\\((\/\\*.*?\\*\/)?\s?.*?([\\.|\\-|\\w|\/|@]+).*?\\)', 'g') // additional chars when output.pathinfo is true
+  var re = new RegExp('(\\\\n|\\\W)' + quoteRegExp(webpackRequireName) + '\\((\/\\*.*?\\*\/)?\s?.*?([\\.|\\-|\\w|\/|@]+).*?\\)', 'g') // additional chars when output.pathinfo is true
   var match
   while ((match = re.exec(fnString))) {
-    retval.push(match[2])
+    retval.push(match[3])
   }
   return retval
 }
