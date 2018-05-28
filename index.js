@@ -113,7 +113,7 @@ function getModuleDependencies (sources, module, queueName) {
   // in such case need to convert 1e3 back to 1000
   var keys = Object.keys(retval);
   for (var i = 0; i < keys.length; i++) {
-    for (var j = 0; j < retval[keys[i]].length; j++) {
+    for (var j = 0; j < retval[keys[i]].length; i++) {
       retval[keys[i]][j] = +retval[keys[i]][j];
     }
   }
