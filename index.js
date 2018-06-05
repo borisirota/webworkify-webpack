@@ -113,8 +113,7 @@ function getModuleDependencies (sources, module, queueName) {
     retval[match[2]].push(match[4])
   }
 
-  // force module to be integer, this can be important after uglify-js converted 1000 to 1e3
-  // in such case need to convert 1e3 back to 1000
+  // convert 1e3 back to 1000 - this can be important after uglify-js converted 1000 to 1e3
   var keys = Object.keys(retval);
   for (var i = 0; i < keys.length; i++) {
     for (var j = 0; j < retval[keys[i]].length; j++) {
