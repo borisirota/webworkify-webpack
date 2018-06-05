@@ -81,6 +81,10 @@ function quoteRegExp (str) {
   return (str + '').replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&')
 }
 
+function isNumeric(n) {
+  return !isNaN(1 * n); // 1 * n converts integers, integers as string ("123"), 1e3 and "1e3" to integers and strings to NaN
+}
+
 function getModuleDependencies (sources, module, queueName) {
   var retval = {}
   retval[queueName] = []
@@ -114,7 +118,9 @@ function getModuleDependencies (sources, module, queueName) {
   var keys = Object.keys(retval);
   for (var i = 0; i < keys.length; i++) {
     for (var j = 0; j < retval[keys[i]].length; j++) {
-      retval[keys[i]][j] = +retval[keys[i]][j];
+      if (isNumeric(retval[keys[i]][j])) {
+        retval[keys[i]][j] = 1 * retval[keys[i]][j];
+      }
     }
   }
 
