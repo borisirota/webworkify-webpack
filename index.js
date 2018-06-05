@@ -173,7 +173,7 @@ module.exports = function (moduleId, options) {
     main: __webpack_modules__
   }
 
-  var requiredModules = options.all ? { main: Object.keys(sources) } : getRequiredModules(sources, moduleId)
+  var requiredModules = options.all ? { main: Object.keys(sources.main) } : getRequiredModules(sources, moduleId)
 
   var src = ''
 
