@@ -74,7 +74,7 @@ function webpackBootstrapFunc (modules) {
 }
 
 var moduleNameReqExp = '[\\.|\\-|\\+|\\w|\/|@]+'
-var dependencyRegExp = '\\([\\S\\s]*?(?:(?=\\d)(' + moduleNameReqExp + ')|"(' + moduleNameReqExp + ')")[\\S\\s]*?\\)' // additional chars when output.pathinfo is true
+var dependencyRegExp = '\\((?:(?=\\d)(' + moduleNameReqExp + ')|[\\S\\s]*?"(' + moduleNameReqExp + ')"[\\S\\s]*?)\\)' // additional chars when output.pathinfo is true
 var wrapperSignatureRegExp = /^function(?: \w+)?\s?\(\w+,\s*\w+,\s*(\w+)\)/
 
 // http://stackoverflow.com/a/2593661/130442
