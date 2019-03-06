@@ -99,20 +99,21 @@ function getModuleDependencies (sources, module, queueName) {
   var re = new RegExp(quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
-    var chosen = match[1] || match[2]
     if (chosen === 'dll-reference') continue
-    retval[queueName].push(chosen)
+    var moduleName = match[1] || match[2]
+    retval[queueName].push(moduleName)
   }
 
   // dll deps
   re = new RegExp('\\(' + quoteRegExp(webpackRequireName) + '\\("(dll-reference\\s(' + moduleNameReqExp + '))"\\)\\)' + dependencyRegExp, 'g')
   while ((match = re.exec(fnString))) {
+    var moduleName = match[3] || match[4]
     if (!sources[match[2]]) {
       retval[queueName].push(match[1])
       sources[match[2]] = __webpack_require__(match[1]).m
     }
     retval[match[2]] = retval[match[2]] || []
-    retval[match[2]].push(match[4])
+    retval[match[2]].push(moduleName)
   }
 
   // convert 1e3 back to 1000 - this can be important after uglify-js converted 1000 to 1e3
