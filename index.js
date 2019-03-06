@@ -75,6 +75,7 @@ function webpackBootstrapFunc (modules) {
 
 var moduleNameReqExp = '[\\.|\\-|\\+|\\w|\/|@]+'
 var dependencyRegExp = '\\((\/\\*.*?\\*\/)?\s?.*?(' + moduleNameReqExp + ').*?\\)' // additional chars when output.pathinfo is true
+var wrapperSignatureRegExp = /^function(?: \w+)?\s?\(\w+,\s*\w+,\s*(\w+)\)/
 
 // http://stackoverflow.com/a/2593661/130442
 function quoteRegExp (str) {
@@ -90,7 +91,7 @@ function getModuleDependencies (sources, module, queueName) {
   retval[queueName] = []
 
   var fnString = module.toString()
-  var wrapperSignature = fnString.match(/^function\s?\(\w+,\s*\w+,\s*(\w+)\)/)
+  var wrapperSignature = fnString.match(wrapperSignatureRegExp)
   if (!wrapperSignature) return retval
   var webpackRequireName = wrapperSignature[1]
 
