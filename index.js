@@ -74,7 +74,7 @@ function webpackBootstrapFunc (modules) {
 }
 
 var moduleNameReqExp = '[\\.|\\-|\\+|\\w|\/|@]+'
-var dependencyRegExp = '\\([\\S\\s]*?"(' + moduleNameReqExp + ')"[\\S\\s]*?\\)' // additional chars when output.pathinfo is true
+var dependencyRegExp = '\\([\\S\\s]*?(?:(?=\\d)(' + moduleNameReqExp + ')|"(' + moduleNameReqExp + ')")[\\S\\s]*?\\)' // additional chars when output.pathinfo is true
 var wrapperSignatureRegExp = /^function(?: \w+)?\s?\(\w+,\s*\w+,\s*(\w+)\)/
 
 // http://stackoverflow.com/a/2593661/130442
@@ -99,8 +99,9 @@ function getModuleDependencies (sources, module, queueName) {
   var re = new RegExp(quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
-    if (match[1] === 'dll-reference') continue
-    retval[queueName].push(match[1])
+    var chosen = match[1] || match[2]
+    if (chosen === 'dll-reference') continue
+    retval[queueName].push(chosen)
   }
 
   // dll deps
