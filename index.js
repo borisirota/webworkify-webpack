@@ -99,8 +99,8 @@ function getModuleDependencies (sources, module, queueName) {
   var re = new RegExp(quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
-    if (chosen === 'dll-reference') continue
     var moduleName = match[1] || match[2]
+    if (moduleName === 'dll-reference') continue
     retval[queueName].push(moduleName)
   }
 
