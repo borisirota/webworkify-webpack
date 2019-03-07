@@ -96,7 +96,7 @@ function getModuleDependencies (sources, module, queueName) {
   var webpackRequireName = wrapperSignature[1]
 
   // main bundle deps
-  var re = new RegExp('[^a-zA-Z\\\\.]' + quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
+  var re = new RegExp('[^a-zA-Z\\.\\_\\-]' + quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
     var moduleName = match[1] || match[2]
