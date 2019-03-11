@@ -74,7 +74,7 @@ function webpackBootstrapFunc (modules) {
 }
 
 var moduleNameReqExp = '[\\.|\\-|\\+|\\w|\/|@]+'
-var dependencyRegExp = '\\((\/\\*.*?\\*\/)?\s?.*?(' + moduleNameReqExp + ').*?\\)' // additional chars when output.pathinfo is true
+var dependencyRegExp = '\\(([\n\r]*\\s*)?(\/\\*.*?\\*\/)?\\s?([\n\r]*\\s*)?.*?(' + moduleNameReqExp + ').*?\\)' // additional chars when output.pathinfo is true
 
 // http://stackoverflow.com/a/2593661/130442
 function quoteRegExp (str) {
@@ -90,7 +90,7 @@ function getModuleDependencies (sources, module, queueName) {
   retval[queueName] = []
 
   var fnString = module.toString()
-  var wrapperSignature = fnString.match(/^function\s?\(\w+,\s*\w+,\s*(\w+)\)/)
+  var wrapperSignature = fnString.match(/^function\s?\w*\(\w+,\s*\w+,\s*(\w+)\)/)
   if (!wrapperSignature) return retval
   var webpackRequireName = wrapperSignature[1]
 
@@ -98,8 +98,8 @@ function getModuleDependencies (sources, module, queueName) {
   var re = new RegExp('(\\\\n|\\W)' + quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
-    if (match[3] === 'dll-reference') continue
-    retval[queueName].push(match[3])
+    if (match[5] === 'dll-reference') continue
+    retval[queueName].push(match[5])
   }
 
   // dll deps
@@ -110,7 +110,7 @@ function getModuleDependencies (sources, module, queueName) {
       sources[match[2]] = __webpack_require__(match[1]).m
     }
     retval[match[2]] = retval[match[2]] || []
-    retval[match[2]].push(match[4])
+    retval[match[2]].push(match[6])
   }
 
   // convert 1e3 back to 1000 - this can be important after uglify-js converted 1000 to 1e3
