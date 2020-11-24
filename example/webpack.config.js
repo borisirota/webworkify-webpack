@@ -1,6 +1,5 @@
-var webpack = require('webpack')
-
 module.exports = {
+  mode: "development",
   entry: {
     app: ['./example/main.js']
   },
@@ -13,18 +12,8 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['es2015']
-            }
-          }
-        ]
+        use: 'babel-loader'
       }
     ]
-  },
-  plugins: [
-    new webpack.NamedModulesPlugin()
-  ]
+  }
 }
