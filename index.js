@@ -182,7 +182,7 @@ function getRequiredModules(sources, moduleId) {
   }
   return requiredModules
 }
-function getWebpackStrting(requiredModules, sources, entryModule, key) {
+function getWebpackString(requiredModules, sources, entryModule, key) {
   let moduleString = requiredModules[key].map((id) => `"${id}": ${sources[key][id].toString()}`).join(",")
   let webpackBootstrapFuncArr = webpackBootstrapFunc.toString().split("ENTRY_MODULE")
   return `${webpackBootstrapFuncArr[0]}{${moduleString}}${webpackBootstrapFuncArr[1]}"${entryModule}"${webpackBootstrapFuncArr[2]}`
@@ -201,9 +201,9 @@ export default function (moduleId, options) {
     }
     requiredModules[module].push(entryModule)
     sources[module][entryModule] = '(function(module, exports, __webpack_require__) { module.exports = __webpack_require__; })'
-    src = src + `var ${module} = (${getWebpackStrting(requiredModules, sources, entryModule, modules)})();\n`
+    src = src + `var ${module} = (${getWebpackString(requiredModules, sources, entryModule, modules)})();\n`
   })
-  src = src + `(${getWebpackStrting(requiredModules, sources, moduleId, "main")})();`
+  src = src + `(${getWebpackString(requiredModules, sources, moduleId, "main")})();`
   var blob = new window.Blob([src], {
     type: 'text/javascript'
   })
