@@ -1,108 +1,132 @@
-function webpackBootstrapFunc (modules) {
-/******/  // The module cache
-/******/  var installedModules = {};
-
-/******/  // The require function
-/******/  function __webpack_require__(moduleId) {
-
-/******/    // Check if module is in cache
-/******/    if(installedModules[moduleId])
-/******/      return installedModules[moduleId].exports;
-
-/******/    // Create a new module (and put it into the cache)
-/******/    var module = installedModules[moduleId] = {
-/******/      i: moduleId,
-/******/      l: false,
-/******/      exports: {}
-/******/    };
-
-/******/    // Execute the module function
-/******/    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/    // Flag the module as loaded
-/******/    module.l = true;
-
-/******/    // Return the exports of the module
-/******/    return module.exports;
-/******/  }
-
-/******/  // expose the modules object (__webpack_modules__)
-/******/  __webpack_require__.m = modules;
-
-/******/  // expose the module cache
-/******/  __webpack_require__.c = installedModules;
-
-/******/  // identity function for calling harmony imports with the correct context
-/******/  __webpack_require__.i = function(value) { return value; };
-
-/******/  // define getter function for harmony exports
-/******/  __webpack_require__.d = function(exports, name, getter) {
-/******/    if(!__webpack_require__.o(exports, name)) {
-/******/      Object.defineProperty(exports, name, {
-/******/        configurable: false,
-/******/        enumerable: true,
-/******/        get: getter
-/******/      });
-/******/    }
-/******/  };
-
-/******/  // define __esModule on exports
-/******/  __webpack_require__.r = function(exports) {
-/******/    Object.defineProperty(exports, '__esModule', { value: true });
-/******/  };
-
-/******/  // getDefaultExport function for compatibility with non-harmony modules
-/******/  __webpack_require__.n = function(module) {
-/******/    var getter = module && module.__esModule ?
-/******/      function getDefault() { return module['default']; } :
-/******/      function getModuleExports() { return module; };
-/******/    __webpack_require__.d(getter, 'a', getter);
-/******/    return getter;
-/******/  };
-
-/******/  // Object.prototype.hasOwnProperty.call
-/******/  __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
-/******/  // __webpack_public_path__
-/******/  __webpack_require__.p = "/";
-
-/******/  // on error function for async loading
-/******/  __webpack_require__.oe = function(err) { console.error(err); throw err; };
-
-  var f = __webpack_require__(__webpack_require__.s = ENTRY_MODULE)
-  return f.default || f // try to call default if defined to also support babel esmodule exports
+const webpackBootstrapFunc = function () {// webpackBootstrap
+  /******/ 	var __webpack_modules__ = ENTRY_MODULE
+  /************************************************************************/
+  /******/ 	// The module cache
+  /******/ 	var __webpack_module_cache__ = {}
+  /******/
+  /******/ 	// The require function
+  /******/ 	function __webpack_require__(moduleId) {
+  /******/ 		// Check if module is in cache
+  /******/ 		if (__webpack_module_cache__[moduleId]) {
+  /******/ 			return __webpack_module_cache__[moduleId].exports
+      /******/
+    }
+  /******/ 		// Create a new module (and put it into the cache)
+  /******/ 		var module = __webpack_module_cache__[moduleId] = {
+  /******/ 			// no module.id needed
+  /******/ 			// no module.loaded needed
+  /******/ 			exports: {}
+      /******/
+    }
+  /******/
+  /******/ 		// Execute the module function
+  /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__)
+  /******/
+  /******/ 		// Return the exports of the module
+  /******/ 		return module.exports
+    /******/
+  }
+  /******/
+  /******/ 	// expose the modules object (__webpack_modules__)
+  /******/ 	__webpack_require__.m = __webpack_modules__;
+  /******/
+  /************************************************************************/
+  /******/ 	/* webpack/runtime/compat get default export */
+  /******/ 	(() => {
+  /******/ 		// getDefaultExport function for compatibility with non-harmony modules
+  /******/ 		__webpack_require__.n = (module) => {
+  /******/ 			var getter = module && module.__esModule ?
+  /******/ 				() => module['default'] :
+  /******/ 				() => module
+  /******/ 			__webpack_require__.d(getter, { a: getter })
+  /******/ 			return getter
+      /******/
+    }
+    /******/
+  })();
+  /******/
+  /******/ 	/* webpack/runtime/define property getters */
+  /******/ 	(() => {
+  /******/ 		// define getter functions for harmony exports
+  /******/ 		__webpack_require__.d = (exports, definition) => {
+  /******/ 			for (var key in definition) {
+  /******/ 				if (__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+  /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] })
+          /******/
+        }
+        /******/
+      }
+      /******/
+    }
+    /******/
+  })();
+  /******/
+  /******/ 	/* webpack/runtime/global */
+  /******/ 	(() => {
+  /******/ 		__webpack_require__.g = (function () {
+  /******/ 		if (Object.prototype.toString.call(globalThis) === '[object Object]') return globalThis
+  /******/ 			try {
+  /******/ 				return this || new Function('return this')()
+        /******/
+      } catch (e) {
+  /******/ 				if (Object.prototype.toString.call(window) === '[object Object]') return window
+        /******/
+      }
+      /******/
+    })()
+    /******/
+  })();
+  /******/
+  /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+  /******/ 	(() => {
+  /******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+    /******/
+  })();
+  /******/
+  /******/ 	/* webpack/runtime/make namespace object */
+  /******/ 	(() => {
+  /******/ 		// define __esModule on exports
+  /******/ 		__webpack_require__.r = (exports) => {
+  /******/ 			if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+  /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' })
+        /******/
+      }
+  /******/ 			Object.defineProperty(exports, '__esModule', { value: true })
+      /******/
+    }
+    /******/
+  })()
+  /******/
+  /************************************************************************/
+  /******/ 	// module factories are used so entry inlining is disabled
+  /******/ 	// startup
+  /******/ 	// Load entry module
+  /******/ 	var result = __webpack_require__(ENTRY_MODULE)
+  /******/  return result.default || result
 }
-
+webpackBootstrapFunc.toString()
 var moduleNameReqExp = '[\\.|\\-|\\+|\\w|\/|@]+'
-var dependencyRegExp = '\\(\\s*(\/\\*.*?\\*\/)?\\s*.*?(' + moduleNameReqExp + ').*?\\)' // additional chars when output.pathinfo is true
-
-// http://stackoverflow.com/a/2593661/130442
-function quoteRegExp (str) {
+var dependencyRegExp = '\\(\\s*(\/\\*.*?\\*\/)?\\s*.*?(' + moduleNameReqExp + ').*?\\)'
+function quoteRegExp(str) {
   return (str + '').replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&')
 }
 
 function isNumeric(n) {
-  return !isNaN(1 * n); // 1 * n converts integers, integers as string ("123"), 1e3 and "1e3" to integers and strings to NaN
+  return !isNaN(1 * n)
 }
-
-function getModuleDependencies (sources, module, queueName) {
+function getModuleDependencies(sources, module, queueName) {
   var retval = {}
   retval[queueName] = []
-
   var fnString = module.toString()
-  var wrapperSignature = fnString.match(/^function\s?\w*\(\w+,\s*\w+,\s*(\w+)\)/)
+  var wrapperSignature = fnString.match(/^function\s?\w*\(\w+,\s*\w+,\s*(\w+)\)/) || fnString.match(/^\(\w+,\s*\w+,\s*(\w+)\)\s?\=\s?\>/)
   if (!wrapperSignature) return retval
   var webpackRequireName = wrapperSignature[1]
-
-  // main bundle deps
   var re = new RegExp('(\\\\n|\\W)' + quoteRegExp(webpackRequireName) + dependencyRegExp, 'g')
   var match
   while ((match = re.exec(fnString))) {
     if (match[3] === 'dll-reference') continue
     retval[queueName].push(match[3])
   }
-
-  // dll deps
   re = new RegExp('\\(' + quoteRegExp(webpackRequireName) + '\\("(dll-reference\\s(' + moduleNameReqExp + '))"\\)\\)' + dependencyRegExp, 'g')
   while ((match = re.exec(fnString))) {
     if (!sources[match[2]]) {
@@ -112,28 +136,22 @@ function getModuleDependencies (sources, module, queueName) {
     retval[match[2]] = retval[match[2]] || []
     retval[match[2]].push(match[4])
   }
-
-  // convert 1e3 back to 1000 - this can be important after uglify-js converted 1000 to 1e3
-  var keys = Object.keys(retval);
+  var keys = Object.keys(retval)
   for (var i = 0; i < keys.length; i++) {
     for (var j = 0; j < retval[keys[i]].length; j++) {
       if (isNumeric(retval[keys[i]][j])) {
-        retval[keys[i]][j] = 1 * retval[keys[i]][j];
+        retval[keys[i]][j] = 1 * retval[keys[i]][j]
       }
     }
   }
-
   return retval
 }
 
-function hasValuesInQueues (queues) {
+function hasValuesInQueues(queues) {
   var keys = Object.keys(queues)
-  return keys.reduce(function (hasValues, key) {
-    return hasValues || queues[key].length > 0
-  }, false)
+  return keys.reduce((hasValues, key) => hasValues || queues[key].length > 0, false)
 }
-
-function getRequiredModules (sources, moduleId) {
+function getRequiredModules(sources, moduleId) {
   var modulesQueue = {
     main: [moduleId]
   }
@@ -143,7 +161,6 @@ function getRequiredModules (sources, moduleId) {
   var seenModules = {
     main: {}
   }
-
   while (hasValuesInQueues(modulesQueue)) {
     var queues = Object.keys(modulesQueue)
     for (var i = 0; i < queues.length; i++) {
@@ -163,40 +180,39 @@ function getRequiredModules (sources, moduleId) {
       }
     }
   }
-
   return requiredModules
 }
-
-module.exports = function (moduleId, options) {
+function getWebpackString(requiredModules, sources, entryModule, key) {
+  let moduleString = requiredModules[key].map((id) => `"${id}": ${sources[key][id].toString()}`).join(",")
+  let webpackBootstrapFuncArr = webpackBootstrapFunc.toString().split("ENTRY_MODULE")
+  return `${webpackBootstrapFuncArr[0]}{${moduleString}}${webpackBootstrapFuncArr[1]}"${entryModule}"${webpackBootstrapFuncArr[2]}`
+}
+export default function (moduleId, options) {
   options = options || {}
   var sources = {
     main: __webpack_modules__
   }
-
   var requiredModules = options.all ? { main: Object.keys(sources.main) } : getRequiredModules(sources, moduleId)
-
   var src = ''
-
-  Object.keys(requiredModules).filter(function (m) { return m !== 'main' }).forEach(function (module) {
+  Object.keys(requiredModules).filter((m) => m !== 'main').forEach((module) => {
     var entryModule = 0
     while (requiredModules[module][entryModule]) {
       entryModule++
     }
     requiredModules[module].push(entryModule)
     sources[module][entryModule] = '(function(module, exports, __webpack_require__) { module.exports = __webpack_require__; })'
-    src = src + 'var ' + module + ' = (' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', JSON.stringify(entryModule)) + ')({' + requiredModules[module].map(function (id) { return '' + JSON.stringify(id) + ': ' + sources[module][id].toString() }).join(',') + '});\n'
+    src = src + `var ${module} = (${getWebpackString(requiredModules, sources, entryModule, modules)})();\n`
   })
-
-  src = src + 'new ((' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', JSON.stringify(moduleId)) + ')({' + requiredModules.main.map(function (id) { return '' + JSON.stringify(id) + ': ' + sources.main[id].toString() }).join(',') + '}))(self);'
-
-  var blob = new window.Blob([src], { type: 'text/javascript' })
-  if (options.bare) { return blob }
-
+  src = src + `(${getWebpackString(requiredModules, sources, moduleId, "main")})();`
+  var blob = new window.Blob([src], {
+    type: 'text/javascript'
+  })
+  if (options.bare) {
+    return blob
+  }
   var URL = window.URL || window.webkitURL || window.mozURL || window.msURL
-
   var workerUrl = URL.createObjectURL(blob)
   var worker = new window.Worker(workerUrl)
   worker.objectURL = workerUrl
-
   return worker
 }
