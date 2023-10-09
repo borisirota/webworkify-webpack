@@ -189,13 +189,13 @@ module.exports = function (moduleId, options) {
 
   src = src + 'new ((' + webpackBootstrapFunc.toString().replace('ENTRY_MODULE', JSON.stringify(moduleId)) + ')({' + requiredModules.main.map(function (id) { return '' + JSON.stringify(id) + ': ' + sources.main[id].toString() }).join(',') + '}))(self);'
 
-  var blob = new window.Blob([src], { type: 'text/javascript' })
+  var blob = new self.Blob([src], { type: 'text/javascript' })
   if (options.bare) { return blob }
 
-  var URL = window.URL || window.webkitURL || window.mozURL || window.msURL
+  var URL = self.URL || self.webkitURL || self.mozURL || self.msURL
 
   var workerUrl = URL.createObjectURL(blob)
-  var worker = new window.Worker(workerUrl)
+  var worker = new self.Worker(workerUrl)
   worker.objectURL = workerUrl
 
   return worker
